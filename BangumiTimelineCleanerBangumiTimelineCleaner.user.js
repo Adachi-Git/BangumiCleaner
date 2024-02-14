@@ -2,7 +2,7 @@
 // @name         BangumiTimelineCleaner
 // @namespace    https://github.com/Adachi-Git/BangumiTimelineCleaner
 // @version      0.1
-// @description  删除页面中所有时间线
+// @description  删除页面中所有时间线记录
 // @author       Adachi
 // @match *://bangumi.tv/user/*/timeline
 // @match *://bgm.tv/user/*/timeline
@@ -20,7 +20,7 @@
 
     // 创建一个按钮元素
     var deleteTimelineButton = document.createElement('button');
-    deleteTimelineButton.textContent = '删除时间线';
+    deleteTimelineButton.textContent = '删除时间线记录';
     deleteTimelineButton.style.position = 'fixed';
     deleteTimelineButton.style.top = '10px';
     deleteTimelineButton.style.left = '10px';
