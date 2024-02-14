@@ -4,7 +4,7 @@ Bangumi Timeline Cleaner 是一个用于在网站 Bangumi 删除时间线的用�
 
 ## 功能特点
 
-- 删除页面中所有时间线条目
+- 删除页面中所有时间线记录
 - 支持防误触二次确认
 - 支持每删10次停止一秒
 - 自动获取当前页面的 Referer、Cookie 和 User-Agent
