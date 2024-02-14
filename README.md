@@ -14,7 +14,7 @@ Bangumi Timeline Cleaner 是一个用于在网站 Bangumi 删除时间线的用�
 
 您可以通过以下链接安装此用户脚本：
 
-[点击这里安装](https://update.greasyfork.org/scripts/487285/BangumiTimelineCleaner.user.js)
+[点击这里安装](https://update.greasyfork.org/scripts/487292/BangumiTimelineCleaner.user.js)
 
 ## 使用方法
 
