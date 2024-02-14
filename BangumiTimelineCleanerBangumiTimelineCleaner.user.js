@@ -20,7 +20,7 @@
 
     // 创建一个按钮元素
     var deleteTimelineButton = document.createElement('button');
-    deleteTimelineButton.textContent = '删除时间线条目';
+    deleteTimelineButton.textContent = '删除时间线';
     deleteTimelineButton.style.position = 'fixed';
     deleteTimelineButton.style.top = '10px';
     deleteTimelineButton.style.left = '10px';
