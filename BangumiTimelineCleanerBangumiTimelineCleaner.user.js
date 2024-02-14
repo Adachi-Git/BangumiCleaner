@@ -10,8 +10,6 @@
 // @grant        none
 // @license MIT
 
-// @downloadURL https://update.greasyfork.org/scripts/487285/BangumiTimelineCleaner.user.js
-// @updateURL https://update.greasyfork.org/scripts/487285/BangumiTimelineCleaner.meta.js
 // ==/UserScript==
 (function() {
     'use strict';
