@@ -1,15 +1,15 @@
 // ==UserScript==
-// @name         BangumiTimelineCleaner
-// @namespace    https://github.com/Adachi-Git/BangumiTimelineCleaner
+// @name         BangumiCleaner
+// @namespace    https://github.com/Adachi-Git/BangumiCleaner
 // @version      0.2
-// @description  删除页面中所有时间线记录和游戏条目
+// @description  删除页面中所有时间线记录和条目
 // @author       Adachi
 // @match        *://bangumi.tv/user/*/timeline
 // @match        *://bgm.tv/user/*/timeline
 // @match        *://chii.in/user/*/timeline
-// @match        *://bangumi.tv/game/list/*
-// @match        *://bgm.tv/game/list/*
-// @match        *://chii.in/game/list/*
+// @match        *://bangumi.tv/*/list/*
+// @match        *://bgm.tv/*/list/*
+// @match        *://chii.in/*/list/*
 // @grant        none
 // @license      MIT
 // ==/UserScript==
@@ -26,7 +26,6 @@
         game: function(gameId, ghParam) {
             return 'https://bangumi.tv/subject/' + gameId + '/remove?gh=' + ghParam;
         }
-        // 可以根据需要添加更多类型的 fetchLinks
     };
 
     // 创建一个按钮元素
@@ -49,9 +48,11 @@
             function deleteItems(deleteButtons, fetchMethod) {
                 return new Promise(function(resolve, reject) {
                     var counter = 0;
+                    var totalItems = deleteButtons.length;
 
-                    function deleteNextItem() {
-                        if (counter < deleteButtons.length) {
+                    function deleteNextItems() {
+                        var batch = [];
+                        for (var i = 0; i < 10 && counter < totalItems; i++, counter++) {
                             var button = deleteButtons[counter];
                             var link;
 
@@ -59,7 +60,7 @@
                             if (fetchMethod === 'timeline') {
                                 link = fetchLinks.timeline(button);
                             } else if (fetchMethod === 'game') {
-                                // 获取游戏页面的 gh 和 id 参数值
+                                // 获取页面的 gh 和 id 参数值
                                 var gameId = button.getAttribute('onclick').match(/\d+/);
                                 var ghParam = button.getAttribute('onclick').match(/'([^']+)'/);
                                 if (gameId && ghParam) {
@@ -67,37 +68,40 @@
                                 }
                             }
 
-                            // 发送请求
+                            // 添加到批量删除请求中
                             if (link) {
-                                fetch(link, {
+                                batch.push(fetch(link, {
                                     method: 'GET',
                                     headers: getHeaders()
-                                })
-                                    .then(response => {
-                                    if (!response.ok) {
-                                        throw new Error('删除请求失败');
-                                    }
-                                    console.log('删除成功:', link);
-                                    counter++;
-                                    if (counter % 10 === 0) {
-                                        setTimeout(deleteNextItem, delayTime); // 每删10次停止一秒
-                                    } else {
-                                        deleteNextItem();
-                                    }
-                                })
-                                    .catch(error => {
-                                    console.error('删除请求错误:', error);
-                                    deleteNextItem();
-                                });
+                                }));
                             }
-                        } else {
-                            resolve();
                         }
+
+                        // 发送批量删除请求
+                        Promise.all(batch)
+                            .then(responses => {
+                            responses.forEach(response => {
+                                if (!response.ok) {
+                                    throw new Error('删除请求失败');
+                                }
+                            });
+                            console.log('成功删除了 ' + batch.length + ' 个条目');
+                            if (counter < totalItems) {
+                                setTimeout(deleteNextItems, delayTime); // 继续删除下一批
+                            } else {
+                                resolve(); // 所有条目都已删除
+                            }
+                        })
+                            .catch(error => {
+                            console.error('删除请求错误:', error);
+                            deleteNextItems(); // 出错时继续删除下一批
+                        });
                     }
 
-                    deleteNextItem();
+                    deleteNextItems();
                 });
             }
+
 
             // 获取请求头
             function getHeaders() {
