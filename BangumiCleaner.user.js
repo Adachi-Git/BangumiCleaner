@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BangumiTimelineCleaner
 // @namespace    https://github.com/Adachi-Git/BangumiTimelineCleaner
-// @version      0.1
+// @version      0.2
 // @description  删除页面中所有时间线记录和游戏条目
 // @author       Adachi
 // @match        *://bangumi.tv/user/*/timeline
