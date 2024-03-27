@@ -15,7 +15,7 @@
 // ==/UserScript==
 (function() {
     'use strict';
-    var delayTime = 100;
+    var delayTime = 1;
 
 
     // 定义不同类型的 fetchLinks
@@ -30,7 +30,7 @@
 
     // 创建一个按钮元素
     var deleteItemsButton = document.createElement('button');
-    deleteItemsButton.textContent = '删除时间线记录和游戏';
+    deleteItemsButton.textContent = '删除时间线记录和条目';
     deleteItemsButton.style.position = 'fixed';
     deleteItemsButton.style.top = '10px';
     deleteItemsButton.style.left = '10px';
@@ -42,7 +42,7 @@
     // 添加点击事件监听器
     deleteItemsButton.addEventListener('click', function() {
         // 弹出确认对话框
-        var confirmDelete = confirm('确定要开始删除时间线记录和游戏条目吗？');
+        var confirmDelete = confirm('确定要开始删除时间线记录和条目吗？');
         if (confirmDelete) {
             // 删除操作函数
             function deleteItems(deleteButtons, fetchMethod) {
@@ -52,7 +52,7 @@
 
                     function deleteNextItems() {
                         var batch = [];
-                        for (var i = 0; i < 10 && counter < totalItems; i++, counter++) {
+                        for (var i = 0; i < 50 && counter < totalItems; i++, counter++) {
                             var button = deleteButtons[counter];
                             var link;
 
@@ -87,7 +87,7 @@
                             });
                             console.log('成功删除了 ' + batch.length + ' 个条目');
                             if (counter < totalItems) {
-                                setTimeout(deleteNextItems, delayTime); // 继续删除下一批
+                                setTimeout(deleteNextItems, 1000); // 等待一秒后继续删除下一批
                             } else {
                                 resolve(); // 所有条目都已删除
                             }
@@ -97,6 +97,7 @@
                             deleteNextItems(); // 出错时继续删除下一批
                         });
                     }
+
 
                     deleteNextItems();
                 });
@@ -126,7 +127,6 @@
             Promise.all([
                 deleteItems(document.querySelectorAll('.tml_del'), 'timeline'),
                 deleteItems(document.querySelectorAll('.collectModify a:last-child'), 'game')
-                // 可以根据需要添加更多类型的删除操作
             ])
                 .then(() => console.log('所有记录和条目已成功删除'))
                 .catch(error => console.error('删除过程中发生错误:', error));
