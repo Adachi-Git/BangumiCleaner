@@ -2,7 +2,7 @@
 // @name         Bangumi Comment Cleaner
 // @namespace    https://github.com/Adachi-Git/BangumiCleaner
 // @version      0.1
-// @description  批量删除Bangumi上的回复
+// @description  批量删除 Bangumi 上的回复
 // @author       Adachi
 // @match        https://*.bangumi.tv/group/my_reply
 // @match        https://*.bgm.tv/group/my_reply
@@ -69,7 +69,7 @@
     // 创建按钮
     function createDeleteButton() {
         var button = document.createElement('button');
-        button.textContent = '批量删除回复';
+        button.textContent = '清空你的回复吧';
         button.style.position = 'fixed';
         button.style.top = '50%';
         button.style.left = '20px';
