@@ -10,7 +10,6 @@
 // @match        *://bangumi.tv/game/list/*
 // @match        *://bgm.tv/game/list/*
 // @match        *://chii.in/game/list/*
-
 // @grant        none
 // @license      MIT
 // ==/UserScript==
