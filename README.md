@@ -1,4 +1,4 @@
-# Bangumi Timeline Cleaner
+# Bangumi Cleaner
 
 BangumiCleaner ，一个用于在网站 Bangumi 删除时间线和条目记录的用户脚本。
 
